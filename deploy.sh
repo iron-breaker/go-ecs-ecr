@@ -14,7 +14,7 @@ configure_aws_cli(){
 deploy_cluster() {
 
     host_port=80
-    family= "sample-webapp-task-family"
+    family="sample-webapp-task-family"
 
     make_task_def
     register_definition
