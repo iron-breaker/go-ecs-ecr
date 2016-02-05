@@ -5,7 +5,6 @@ machine:
 dependencies:
   post:
     - docker build -t $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/go-sample-webapp:$CIRCLE_SHA1 .
-    - pip install awscli
 
 test:
   post:
