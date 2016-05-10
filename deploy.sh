@@ -2,7 +2,7 @@
 
 # valiabls
 AWS_DEFAULT_REGION=us-east-1
-AWS_ECS_FAMIRY=nginx-sample-webapp
+AWS_ECS_TASKDEF_NAME=nginx-sample-webapp
 AWS_ECS_CLUSTER_NAME=sample-webapp-cluster
 AWS_ECS_SERVICE_NAME=sample-webapp-service
 AWS_ECR_REP_NAME=nginx-sample-webapp
@@ -11,15 +11,15 @@ AWS_ECR_REP_NAME=nginx-sample-webapp
 make_task_def(){
 	task_template='[
 		{
-			"name": "nginx-sample-webapp",
-			"image": "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${AWS_ECR_REP_NAME}:${CIRCLE_SHA1}",
-			"essential": true,
-			"memory": 200,
-			"cpu": 10,
-			"portMappings": [
+			¥"name¥": "${AWS_ECS_TASKDEF_NAME}",
+			¥"image¥": "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${AWS_ECR_REP_NAME}:${CIRCLE_SHA1}",
+			¥"essential¥": true,
+			¥"memory¥": 200,
+			¥"cpu¥": 10,
+			¥"portMappings¥": [
 				{
-					"containerPort": 80,
-					"hostPort": 80
+					¥"containerPort¥": 80,
+					¥"hostPort¥": 80
 				}
 			]
 		}
@@ -39,8 +39,6 @@ configure_aws_cli(){
 }
 
 deploy_cluster() {
-
-    family=${AWS_ECS_FAMIRY}
 
     make_task_def
     register_definition
@@ -76,9 +74,9 @@ push_ecr_image(){
 register_definition() {
 
 echo "aaa"
-echo "aws ecs register-task-definition --container-definitions "$task_def" --family $family"
+echo "aws ecs register-task-definition --container-definitions "$task_def" --family ${AWS_ECS_TASKDEF_NAME}"
 
-    if revision=$(aws ecs register-task-definition --container-definitions "$task_def" --family $family | $JQ '.taskDefinition.taskDefinitionArn'); then
+    if revision=$(aws ecs register-task-definition --container-definitions "$task_def" --family ${AWS_ECS_TASKDEF_NAME} | $JQ '.taskDefinition.taskDefinitionArn'); then
         echo "Revision: $revision"
     else
         echo "Failed to register task definition"
