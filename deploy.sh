@@ -11,22 +11,21 @@ AWS_ECR_REP_NAME=nginx-sample-webapp
 make_task_def(){
 	task_template='[
 		{
-			\"name\": "\$${AWS_ECS_TASKDEF_NAME}",
-			\"image\": "\$${AWS_ACCOUNT_ID}.dkr.ecr.\$${AWS_DEFAULT_REGION}.amazonaws.com/\$${AWS_ECR_REP_NAME}:\$${CIRCLE_SHA1}",
-			\"essential\": true,
-			\"memory\": 200,
-			\"cpu\": 10,
-			\"portMappings\": [
+			"name": "%s",
+			"image": "%s.dkr.ecr.%s.amazonaws.com/%s:%s",
+			"essential": true,
+			"memory": 200,
+			"cpu": 10,
+			"portMappings": [
 				{
-					\"containerPort\": 80,
-					\"hostPort\": 80
+					"containerPort": 80,
+					"hostPort": 80
 				}
 			]
 		}
 	]'
 
-	task_def=$(printf "$task_template" $AWS_ACCOUNT_ID $CIRCLE_SHA1)
-	task_def=`eval echo $task_def`
+	task_def=$(printf "$task_template" ${AWS_ECS_TASKDEF_NAME} $AWS_ACCOUNT_ID ${AWS_DEFAULT_REGION} ${AWS_DEFAULT_REGION} $CIRCLE_SHA1)
 }
 
 # more bash-friendly output for jq
