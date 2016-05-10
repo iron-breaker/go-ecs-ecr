@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+echo "aaaaaaa"
+echo "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/nginx-sample-webapp:{$CIRCLE_SHA1}"
 
 # valiabls
 AWS_DEFAULT_REGION=us-east-1
@@ -12,7 +14,7 @@ make_task_def(){
 	task_template='[
 		{
 			"name": "nginx-sample-webapp",
-			"image": "$AWS_ACCOUNT_ID.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/nginx-sample-webapp:$CIRCLE_SHA1",
+			"image": "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/nginx-sample-webapp:{$CIRCLE_SHA1}",
 			"essential": true,
 			"memory": 200,
 			"cpu": 10,
