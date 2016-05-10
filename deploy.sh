@@ -5,6 +5,7 @@ AWS_DEFAULT_REGION=us-east-1
 AWS_ECS_FAMIRY=nginx-sample-webapp
 AWS_ECS_CLUSTER_NAME=sample-webapp-cluster
 AWS_ECS_SERVICE_NAME=sample-webapp-service
+AWS_ECR_REP_NAME=nginx-sample-webapp
 
 # Create Task Definition
 make_task_def(){
@@ -68,7 +69,7 @@ deploy_cluster() {
 
 push_ecr_image(){
 	eval $(aws ecr get-login --region ${AWS_DEFAULT_REGION})
-	docker push $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/go-sample-webapp:$CIRCLE_SHA1
+	docker push $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/${AWS_ECR_REP_NAME}:$CIRCLE_SHA1
 }
 
 register_definition() {
