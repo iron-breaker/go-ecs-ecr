@@ -8,7 +8,7 @@ AWS_ECS_SERVICE_NAME=sample-webapp-service
 AWS_ECR_REP_NAME=nginx-sample-webapp
 
 echo "aaaaaaa"
-echo "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/nginx-sample-webapp:${CIRCLE_SHA1}"
+echo "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${AWS_ECR_REP_NAME}:${CIRCLE_SHA1}"
 
 
 # Create Task Definition
