@@ -11,15 +11,15 @@ AWS_ECR_REP_NAME=nginx-sample-webapp
 make_task_def(){
 	task_template='[
 		{
-			¥"name¥": "${AWS_ECS_TASKDEF_NAME}",
-			¥"image¥": "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${AWS_ECR_REP_NAME}:${CIRCLE_SHA1}",
-			¥"essential¥": true,
-			¥"memory¥": 200,
-			¥"cpu¥": 10,
-			¥"portMappings¥": [
+			\"name\": "${AWS_ECS_TASKDEF_NAME}",
+			\"image\": "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${AWS_ECR_REP_NAME}:${CIRCLE_SHA1}",
+			\"essential\": true,
+			\"memory\": 200,
+			\"cpu\": 10,
+			\"portMappings\": [
 				{
-					¥"containerPort¥": 80,
-					¥"hostPort¥": 80
+					\"containerPort\": 80,
+					\"hostPort\": 80
 				}
 			]
 		}
