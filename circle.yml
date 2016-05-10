@@ -8,8 +8,8 @@ dependencies:
 
 test:
   post:
-    - docker run -d -p 8080:8080 --name nginx-sample-webapp $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/go-sample-webapp:$CIRCLE_SHA1; sleep 10
-    - curl --retry 10 --retry-delay 5 localhost:8080 | grep "Hello World!"
+    - docker run -d -p 80:80 --name nginx-sample-webapp $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/go-sample-webapp:$CIRCLE_SHA1; sleep 10
+    - curl --retry 10 --retry-delay 5 localhost:80 | grep "Hello World!"
 
 deployment:
   prod:
