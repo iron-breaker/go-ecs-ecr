@@ -18,7 +18,7 @@ make_task_def(){
 			"cpu": 10,
 			"portMappings": [
 				{
-					"containerPort": 8080,
+					"containerPort": 80,
 					"hostPort": 80
 				}
 			]
