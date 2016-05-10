@@ -43,9 +43,6 @@ deploy_cluster() {
 
     make_task_def
     register_definition
-
-echo "aaaa"
-echo "aws ecs update-service --cluster ${AWS_ECS_CLUSTER_NAME} --service ${AWS_ECS_SERVICE_NAME} --task-definition $revision"
     if [[ $(aws ecs update-service --cluster ${AWS_ECS_CLUSTER_NAME} --service ${AWS_ECS_SERVICE_NAME} --task-definition $revision | \
                    $JQ '.service.taskDefinition') != $revision ]]; then
         echo "Error updating service."
@@ -76,6 +73,9 @@ push_ecr_image(){
 }
 
 register_definition() {
+
+echo "aaa"
+echo "aws ecs register-task-definition --container-definitions "$task_def" --family $family"
 
     if revision=$(aws ecs register-task-definition --container-definitions "$task_def" --family $family | $JQ '.taskDefinition.taskDefinitionArn'); then
         echo "Revision: $revision"
