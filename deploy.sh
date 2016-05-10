@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-echo "aaaaaaa"
-echo "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/nginx-sample-webapp:{$CIRCLE_SHA1}"
 
 # valiabls
 AWS_DEFAULT_REGION=us-east-1
@@ -8,6 +6,10 @@ AWS_ECS_FAMIRY=nginx-sample-webapp
 AWS_ECS_CLUSTER_NAME=sample-webapp-cluster
 AWS_ECS_SERVICE_NAME=sample-webapp-service
 AWS_ECR_REP_NAME=nginx-sample-webapp
+
+echo "aaaaaaa"
+echo "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/nginx-sample-webapp:${CIRCLE_SHA1}"
+
 
 # Create Task Definition
 make_task_def(){
