@@ -7,10 +7,6 @@ AWS_ECS_CLUSTER_NAME=sample-webapp-cluster
 AWS_ECS_SERVICE_NAME=sample-webapp-service
 AWS_ECR_REP_NAME=nginx-sample-webapp
 
-echo "aaaaaaa"
-echo "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${AWS_ECR_REP_NAME}:${CIRCLE_SHA1}"
-
-
 # Create Task Definition
 make_task_def(){
 	task_template='[
@@ -47,6 +43,9 @@ deploy_cluster() {
 
     make_task_def
     register_definition
+
+echo "aaaa"
+echo "aws ecs update-service --cluster ${AWS_ECS_CLUSTER_NAME} --service ${AWS_ECS_SERVICE_NAME} --task-definition $revision"
     if [[ $(aws ecs update-service --cluster ${AWS_ECS_CLUSTER_NAME} --service ${AWS_ECS_SERVICE_NAME} --task-definition $revision | \
                    $JQ '.service.taskDefinition') != $revision ]]; then
         echo "Error updating service."
