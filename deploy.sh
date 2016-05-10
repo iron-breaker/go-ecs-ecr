@@ -11,8 +11,8 @@ AWS_ECR_REP_NAME=nginx-sample-webapp
 make_task_def(){
 	task_template='[
 		{
-			\"name\": "${AWS_ECS_TASKDEF_NAME}",
-			\"image\": "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${AWS_ECR_REP_NAME}:${CIRCLE_SHA1}",
+			\"name\": "\$${AWS_ECS_TASKDEF_NAME}",
+			\"image\": "\$${AWS_ACCOUNT_ID}.dkr.ecr.$\${AWS_DEFAULT_REGION}.amazonaws.com/\$${AWS_ECR_REP_NAME}:\$${CIRCLE_SHA1}",
 			\"essential\": true,
 			\"memory\": 200,
 			\"cpu\": 10,
@@ -26,7 +26,7 @@ make_task_def(){
 	]'
 
 #	task_def=$(printf "$task_template" $AWS_ACCOUNT_ID $CIRCLE_SHA1)
-	task_def=$(eval 'echo -n "$task_template" $AWS_ACCOUNT_ID $CIRCLE_SHA1')
+	task_def=$(eval echo -n "$task_template" $AWS_ACCOUNT_ID $CIRCLE_SHA1)
 }
 
 # more bash-friendly output for jq
